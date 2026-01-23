@@ -293,6 +293,9 @@ vim config.yaml  # Set domain, questions, constraints
 - **Repository**: https://github.com/labgadget015-dotcom/analysis-os
 - **Issues**: https://github.com/labgadget015-dotcom/analysis-os/issues
 - **Discussions**: https://github.com/labgadget015-dotcom/analysis-os/discussions
+- **📖 Tutorial**: See [docs/TUTORIAL.md](docs/TUTORIAL.md) for a complete walkthrough
+- **🏗️ Architecture**: Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for technical details
+- **🤖 Automation**: Use `scripts/run_analysis.sh` to orchestrate analyses
 
 ---
 

@@ -189,6 +189,50 @@ analysis-os/
 
 ## ⚙️ Customization
 
+### Module D: Marketing Attribution
+
+**Target**: Optimize marketing spend and understand customer journey touchpoints
+
+**Questions**:
+- Which marketing channels drive highest ROI?
+- What is the optimal budget allocation across channels?
+- How do customers typically convert (customer journey)?
+
+**Prompt**: `/prompts/use_cases/marketing_attribution/PROMPT.md`
+
+### Module E: Pricing Optimization
+
+**Target**: Maximize revenue and profit through strategic pricing
+
+**Questions**:
+- What are optimal price points for our products?
+- How price-sensitive are different customer segments?
+- What's the projected revenue impact of price changes?
+
+**Prompt**: `/prompts/use_cases/pricing_optimization/PROMPT.md`
+
+### Module F: Customer Segmentation
+
+**Target**: Identify and profile distinct customer groups for targeted strategies
+
+**Questions**:
+- What are our key customer segments (RFM, behavioral, demographic)?
+- Which segments have highest lifetime value?
+- How should we tailor strategies by segment?
+
+**Prompt**: `/prompts/use_cases/customer_segmentation/PROMPT.md`
+
+### Module G: A/B Test Analysis
+
+**Target**: Rigorously analyze experiments to make ship/no-ship decisions
+
+**Questions**:
+- Is the test result statistically significant?
+- What's the expected business impact if we ship?
+- Are there segment-specific effects we should consider?
+
+**Prompt**: `/prompts/use_cases/ab_test_analysis/PROMPT.md`
+
 ### 1. Edit `config.yaml`
 Centralize your analysis parameters:
 ```yaml

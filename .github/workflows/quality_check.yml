@@ -1,0 +1,94 @@
+name: Quality Check
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check YAML files
+      run: |
+        echo "Validating config.yaml..."
+        python -c "import yaml; yaml.safe_load(open('config.yaml'))"
+    
+    - name: Check Markdown formatting
+      uses: nosborn/github-action-markdown-cli@v3.3.0
+      with:
+        files: .
+        config_file: .markdownlint.json
+        ignore_files: node_modules/
+    
+    - name: Verify required files
+      run: |
+        echo "Checking repository structure..."
+        required_files=(
+          "README.md"
+          "config.yaml"
+          "checklists/master_analysis_checklist.md"
+          "prompts/core/data_prep.md"
+          "prompts/core/core_analysis.md"
+          "prompts/core/drill_down.md"
+          "prompts/core/actionize.md"
+          "prompts/core/iterate.md"
+          "templates/output_template.md"
+          "templates/recommendation_table.md"
+        )
+        
+        for file in "${required_files[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "ERROR: Required file missing: $file"
+            exit 1
+          fi
+        done
+        
+        echo "✅ All required files present"
+    
+    - name: Check documentation completeness
+      run: |
+        echo "Verifying README sections..."
+        required_sections=(
+          "Overview"
+          "Installation"
+          "Usage"
+          "Architecture"
+        )
+        
+        for section in "${required_sections[@]}"; do
+          if ! grep -q "## $section" README.md; then
+            echo "WARNING: README missing section: $section"
+          fi
+        done
+        
+        echo "✅ Documentation check complete"
+    
+    - name: Validate prompt templates
+      run: |
+        echo "Checking prompt template structure..."
+        
+        # Check that each use case has required sections
+        for prompt_file in prompts/use_cases/*/PROMPT.md; do
+          if [ -f "$prompt_file" ]; then
+            echo "Checking $prompt_file..."
+            
+            if ! grep -q "## Role & Context" "$prompt_file"; then
+              echo "WARNING: $prompt_file missing 'Role & Context' section"
+            fi
+            
+            if ! grep -q "## Objective" "$prompt_file"; then
+              echo "WARNING: $prompt_file missing 'Objective' section"
+            fi
+            
+            if ! grep -q "## Output Format" "$prompt_file"; then
+              echo "WARNING: $prompt_file missing 'Output Format' section"
+            fi
+          fi
+        done
+        
+        echo "✅ Prompt validation complete"

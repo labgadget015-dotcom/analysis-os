@@ -1,0 +1,175 @@
+name: Run Analysis Pipeline
+
+on:
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      config_file:
+        description: 'Config file to use (config.yaml or config.production.yaml)'
+        required: true
+        default: 'config.yaml'
+      use_case:
+        description: 'Use case to run (e.g., churn, smb_ai_audit, market_research)'
+        required: true
+        default: 'smb_ai_audit'
+  
+  # Scheduled trigger
+  schedule:
+    # Daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  analysis:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Validate configuration
+        run: |
+          python scripts/validate_config.py --config ${{ github.event.inputs.config_file || 'config.yaml' }}
+      
+      - name: Fetch data from BigQuery
+        env:
+          GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+          GCP_SERVICE_ACCOUNT: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+        run: |
+          echo $GCP_SERVICE_ACCOUNT | base64 -d > /tmp/gcp_key.json
+          python scripts/fetch_data.py --config ${{ github.event.inputs.config_file || 'config.yaml' }}
+        
+      - name: Validate data quality
+        run: |
+          python scripts/validate_data.py
+      
+      - name: Run analysis (ChatGPT)
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python scripts/run_analysis.py \
+            --config ${{ github.event.inputs.config_file || 'config.yaml' }} \
+            --use-case ${{ github.event.inputs.use_case || 'smb_ai_audit' }}
+      
+      - name: Generate report
+        run: |
+          python scripts/generate_report.py \
+            --output ./reports/analysis_$(date +%Y%m%d_%H%M%S).html
+      
+      - name: Create summary
+        run: |
+          python scripts/create_summary.py
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: analysis-results
+          path: |
+            reports/
+            outputs/
+          retention-days: 30
+      
+      - name: Notify Slack on success
+        if: success()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {{
+              text: `Analysis completed successfully! 🎉`,
+              attachments: [{{
+                color: 'good',
+                text: `Config: ${{ github.event.inputs.config_file || 'config.yaml' }}
+Use case: ${{ github.event.inputs.use_case || 'smb_ai_audit' }}
+View results: ${process.env.AS_COMMIT}`
+              }}]
+            }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+      - name: Notify Slack on failure
+        if: failure()
+        uses: 8398a7/action-slack@v3
+        with:
+          status: custom
+          custom_payload: |
+            {{
+              text: `Analysis failed! ❌`,
+              attachments: [{{
+                color: 'danger',
+                text: `Config: ${{ github.event.inputs.config_file || 'config.yaml' }}
+Run: ${process.env.AS_RUN_URL}
+Error: Check logs for details`
+              }}]
+            }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+      - name: Post comment on PR
+        if: github.event_name == 'pull_request' && success()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '### Analysis Pipeline Passed ✅\n\nAll validation checks passed. Report ready for review!'
+            })
+
+  quality-check:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: analysis
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+      
+      - name: Validate report quality
+        run: |
+          python scripts/validate_report.py
+      
+      - name: Check for anomalies
+        run: |
+          python scripts/detect_anomalies.py
+      
+      - name: Archive results
+        run: |
+          tar -czf analysis-results-$(date +%Y%m%d_%H%M%S).tar.gz reports/ outputs/
+          gsutil cp analysis-results-*.tar.gz gs://${{ secrets.GCS_BUCKET }}/analyses/
+
+  # Optional: Deploy to dashboard if configured
+  deploy-dashboard:
+    runs-on: ubuntu-latest
+    if: success() && github.ref == 'refs/heads/main'
+    needs: analysis
+    
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+      
+      - name: Deploy to Tableau
+        env:
+          TABLEAU_SERVER: ${{ secrets.TABLEAU_SERVER }}
+          TABLEAU_USERNAME: ${{ secrets.TABLEAU_USERNAME }}
+          TABLEAU_PASSWORD: ${{ secrets.TABLEAU_PASSWORD }}
+        run: |
+          python scripts/deploy_to_tableau.py
+      
+      - name: Update web dashboard
+        run: |
+          python scripts/update_dashboard.py

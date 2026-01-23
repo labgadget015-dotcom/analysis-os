@@ -1,0 +1,366 @@
+# Production Configuration - BigQuery + ChatGPT + Python Stack
+# For enterprise analysis workflows with large datasets
+# ========================================
+
+analysis:
+  # Domain configuration
+  domain: "Enterprise Analytics"
+  
+  # Primary business questions
+  questions:
+    - "What are the key performance drivers?"
+    - "Where are the biggest opportunities/risks?"
+    - "What actions should we prioritize?"
+  
+  # Production constraints
+  constraints:
+    date_range: "Dynamic (auto-set to last 90 days)"
+    budget: "As negotiated per engagement"
+    timeline: "As agreed in SOW"
+    geographic_scope: "Global"
+    sla_response_time: "24 hours"
+    data_refresh_frequency: "Daily"
+
+# ========================================
+# PRODUCTION TOOL STACK
+# ========================================
+tools:
+  # Big data warehouse - primary tool for large datasets
+  data_warehouse:
+    primary: "BigQuery"
+    connection_method: "Service account authentication"
+    region: "US-multi (default)"
+    dataset_prefix: "analysis_"
+    max_bytes_scanned_limit: "100GB" # Cost control
+    query_timeout: "300s"
+    
+  # LLM for analysis & reasoning
+  large_language_model:
+    primary: "ChatGPT (GPT-4 with Code Interpreter)"
+    api_version: "gpt-4-turbo-preview"
+    temperature: 0.2  # Low for consistency
+    max_tokens: 4000
+    fallback: "Claude 3 (Opus)"
+    
+  # Python for data processing
+  data_processing:
+    language: "Python 3.11+"
+    primary_libraries:
+      - "pandas (data manipulation)"
+      - "numpy (numerical computing)"
+      - "scikit-learn (ML preprocessing)"
+      - "google-cloud-bigquery (BigQuery client)"
+    
+  # Visualization & reporting
+  visualization:
+    primary: "Python (matplotlib + seaborn + plotly)"
+    secondary: "Tableau (for interactive dashboards)"
+    export_format: "PDF + HTML + PNG"
+    
+  # Automation & orchestration
+  workflow_orchestration:
+    primary: "Apache Airflow"
+    execution_environment: "Cloud Composer (GCP)"
+    schedule: "Daily at 2 AM UTC"
+    
+  # Version control
+  version_control:
+    primary: "GitHub"
+    branch_strategy: "main (production) + dev (development)"
+    code_review: "Required (2 approvals)"
+
+# ========================================
+# DATA SOURCES (PRODUCTION)
+# ========================================
+data_sources:
+  # Main data warehouse
+  - name: "BigQuery Analytics Warehouse"
+    type: "BigQuery"
+    project_id: "YOUR_GCP_PROJECT_ID"
+    location: "US"
+    datasets:
+      - analytics.events
+      - analytics.users
+      - analytics.transactions
+      - sales.pipeline
+      - marketing.campaigns
+    refresh_frequency: "Real-time (streaming) / Daily (batch)"
+    sla: "99.99% uptime"
+    
+  # Third-party integrations
+  - name: "Salesforce Data Cloud"
+    type: "Salesforce API"
+    endpoint: "https://api.salesforce.com/v56.0"
+    objects:
+      - Account
+      - Opportunity
+      - Campaign
+      - Contact
+    sync_frequency: "Hourly"
+    
+  - name: "Stripe Payments"
+    type: "Stripe API"
+    endpoint: "https://api.stripe.com/v1"
+    entities:
+      - Charges
+      - Customers
+      - Subscriptions
+      - Invoices
+    sync_frequency: "Real-time webhook + Daily batch"
+    
+  - name: "Google Analytics 4"
+    type: "GA4 BigQuery Export"
+    table: "analytics_<PROPERTY_ID>.events_*"
+    sync_frequency: "Intra-day (multiple times per day)"
+
+# ========================================
+# OUTPUT & DELIVERY
+# ========================================
+output:
+  # Report generation
+  format: "HTML + PDF + Markdown"
+  distribution_method: "Email + Slack + Secure Portal"
+  archive_location: "gs://YOUR_BUCKET/analyses/"
+  retention_days: 365
+  
+  # Report sections
+  sections:
+    - "Executive Summary (1 page)"
+    - "Key Metrics Dashboard"
+    - "Detailed Findings (with visualizations)"
+    - "Recommendations (prioritized, quantified)"
+    - "Next Steps & Roadmap"
+    - "Technical Appendix (data quality, assumptions)"
+  
+  # Recommendation table
+  recommendation_columns:
+    - "Recommendation"
+    - "Expected Annual Impact ($ or %)"
+    - "Implementation Effort (hours)"
+    - "Timeline (weeks)"
+    - "Priority (P0/P1/P2)"
+    - "Owner"
+    - "Success Metric"
+    - "Confidence Level"
+
+# ========================================
+# PROMPT ENGINEERING (PRODUCTION)
+# ========================================
+prompt_settings:
+  # Reasoning methodology
+  chain_of_thought: true
+  reasoning_depth: "Deep (show all work)"
+  
+  # Evidence & citations
+  require_evidence: true
+  evidence_format: "Data+table where claim made + specific query/calculation shown"
+  
+  # Output quality
+  llm_temperature: 0.2  # Consistent, deterministic
+  max_tokens: 4000
+  retry_on_error: true
+  max_retries: 3
+  
+  # Fact-checking
+  validate_claims: true
+  check_for_contradictions: true
+  validate_calculations: true
+
+# ========================================
+# VALIDATION & QUALITY ASSURANCE
+# ========================================
+validation:
+  # Statistical rigor
+  min_sample_size: 1000
+  confidence_level: 0.95
+  p_value_threshold: 0.05
+  
+  # Bias checks
+  bias_checks:
+    - "survivorship_bias"
+    - "selection_bias"
+    - "confirmation_bias"
+    - "recency_bias"
+    - "simpson_paradox"
+    - "selection_effect"
+  
+  # Data quality
+  data_quality:
+    max_missing_rate: 0.15  # 15% max
+    min_completeness: 0.85  # 85% min
+    max_duplicate_rate: 0.01  # 1% max
+  
+  # Outlier handling
+  outlier_detection:
+    method: "IQR + Z-score + Domain knowledge"
+    action: "Flag, document, analyze separately"
+    extreme_threshold: 5  # 5 std devs
+  
+  # QA Checklist
+  qa_checklist:
+    - "Data source availability verified"
+    - "All claims backed by data"
+    - "Assumptions documented"
+    - "Limitations acknowledged"
+    - "Calculations spot-checked"
+    - "Visuals are clear & accurate"
+    - "Recommendations are actionable"
+    - "Next steps are specific & measurable"
+
+# ========================================
+# AUTOMATION & CI/CD
+# ========================================
+automation:
+  # Scheduling
+  schedule:
+    daily_analysis: "2 AM UTC"
+    weekly_deep_dive: "Monday 10 AM UTC"
+    monthly_exec_summary: "1st of month, 9 AM UTC"
+  
+  # Pipeline stages
+  pipeline:
+    - name: "Data Fetch"
+      tool: "BigQuery Python SDK"
+      timeout: "30 min"
+    - name: "Data Validation"
+      tool: "Great Expectations"
+      timeout: "10 min"
+    - name: "Analysis"
+      tool: "ChatGPT API + Python"
+      timeout: "45 min"
+    - name: "Report Generation"
+      tool: "Python (Jinja2 templates)"
+      timeout: "15 min"
+    - name: "Distribution"
+      tool: "SendGrid + Slack API"
+      timeout: "10 min"
+  
+  # Error handling
+  on_failure:
+    - "Alert Slack #data-alerts"
+    - "Send email to on-call analyst"
+    - "Create GitHub issue"
+    - "Rollback to last successful run"
+  
+  # Monitoring
+  monitoring:
+    alert_threshold_latency: "5 minutes (from scheduled time)"
+    alert_threshold_failure: "Any failure"
+    health_check_interval: "Every 6 hours"
+
+# ========================================
+# SECURITY & COMPLIANCE
+# ========================================
+security:
+  # Authentication
+  authentication:
+    bigquery: "Service account (GCP)"
+    stripe: "API key (env variable)"
+    salesforce: "OAuth 2.0"
+    
+  # Data protection
+  encryption:
+    data_at_rest: "AES-256 (GCS)"
+    data_in_transit: "TLS 1.3"
+    
+  # Access control
+  rbac:
+    admin: "Data team leads"
+    analyst: "Approved analysts"
+    viewer: "Client stakeholders"
+    
+  # Compliance
+  pii_handling: "Anonymize or exclude PII from reports"
+  data_retention: "Delete raw analysis data after 90 days"
+  audit_logging: "All data access logged"
+
+# ========================================
+# COST OPTIMIZATION
+# ========================================
+cost_control:
+  # BigQuery
+  bigquery:
+    slot_reservation: false  # On-demand billing
+    partition_tables: true  # By date
+    clustering: true  # By common filters
+    query_optimization: "Always use WHERE clauses and SELECT specific columns"
+    monthly_budget_alert: "$5,000"
+    
+  # API usage
+  api_costs:
+    chatgpt: "Monitor token usage; set rate limits"
+    stripe: "Included in subscription"
+    salesforce: "Included in license"
+    
+  # Resource optimization
+  resources:
+    max_parallel_jobs: 3
+    auto_shutdown_idle: true
+    shutdown_timeout: "15 minutes"
+
+# ========================================
+# NOTIFICATIONS & ALERTING
+# ========================================
+notifications:
+  # Slack
+  slack:
+    enabled: true
+    webhook_url: "${SLACK_WEBHOOK_URL}"  # From env
+    channels:
+      on_success: "#data-analysis"
+      on_failure: "#data-alerts"
+      on_finding: "#insights"  # New actionable insights
+    
+  # Email
+  email:
+    enabled: true
+    smtp_server: "smtp.sendgrid.net"
+    from_address: "analytics@company.com"
+    recipients:
+      primary: "executives@company.com"
+      backup: "analytics-team@company.com"
+  
+  # PagerDuty (for critical issues)
+  pagerduty:
+    enabled: true
+    on_data_anomalies: true
+    severity_threshold: "critical"
+
+# ========================================
+# VERSIONING & CHANGE MANAGEMENT
+# ========================================
+versioning:
+  config_version: "1.0.0"
+  last_updated: "2026-01-23"
+  maintained_by: "Data Analytics Team"
+  review_frequency: "Quarterly"
+  
+  # Change log
+  changes:
+    - version: "1.0.0"
+      date: "2026-01-23"
+      changes: "Initial production configuration"
+      approved_by: "Data Lead"
+
+# ========================================
+# ENVIRONMENT VARIABLES (Required)
+# ========================================
+env_variables:
+  # GCP
+  GCP_PROJECT_ID: "YOUR_PROJECT_ID"
+  BIGQUERY_DATASET: "analysis_prod"
+  GCS_BUCKET: "gs://YOUR_BUCKET"
+  
+  # APIs
+  CHATGPT_API_KEY: "sk-..."
+  STRIPE_API_KEY: "sk_live_..."
+  SALESFORCE_CLIENT_ID: "..."
+  SALESFORCE_CLIENT_SECRET: "..."
+  
+  # Notifications
+  SLACK_WEBHOOK_URL: "https://hooks.slack.com/..."
+  SENDGRID_API_KEY: "SG..."
+  
+  # Airflow
+  AIRFLOW_HOME: "/opt/airflow"
+  AIRFLOW_UID: "50000"

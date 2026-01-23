@@ -1,4 +1,10 @@
 # analysis-os
+
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Shell](https://img.shields.io/badge/shell-100%25-green.svg)
+![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
+![Status](https://img.shields.io/badge/status-production--ready-success.svg)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 Analysis &amp; AI Consulting OS - Unified framework for data-driven insights and actionable recommendations. Includes churn analysis, SMB AI audits, funnel optimization, and more.
 
 ## 🎯 Overview

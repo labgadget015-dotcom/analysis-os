@@ -1,0 +1,180 @@
+# Analysis OS Configuration File
+# Customize these settings for your analysis workflow
+
+# ========================================
+# Analysis Configuration
+# ========================================
+analysis:
+  # Domain/industry of your analysis
+  domain: "SaaS churn"  # Examples: "SaaS churn", "e-commerce", "healthcare", "finance"
+  
+  # Primary business questions to answer
+  questions:
+    - "Which customer segments have highest churn risk?"
+    - "What behaviors predict churn?"
+    - "What actions reduce churn by 10%+?"
+  
+  # Analysis constraints
+  constraints:
+    date_range: "2024-01-01 to 2024-12-31"
+    budget: "$50,000"
+    timeline: "8 weeks"
+    geographic_scope: "North America"
+
+# ========================================
+# Tool Selection
+# ========================================
+tools:
+  # For small datasets (<100MB, <1M rows)
+  small_data:
+    primary: "ChatGPT (Code Interpreter)"
+    alternative: "Claude (Artifacts)"
+  
+  # For large datasets (>100MB, >1M rows)
+  large_data:
+    primary: "BigQuery + Claude"
+    alternative: "Snowflake + ChatGPT"
+  
+  # Visualization tools
+  visualization:
+    primary: "Python (matplotlib/seaborn)"
+    alternative: "Tableau"
+  
+  # Notebook environment
+  notebooks: "Jupyter"
+
+# ========================================
+# Data Sources
+# ========================================
+data_sources:
+  # List your data sources
+  - name: "Customer Database"
+    type: "PostgreSQL"
+    location: "prod_db.customers"
+    update_frequency: "Daily"
+  
+  - name: "Event Logs"
+    type: "BigQuery"
+    location: "analytics.events"
+    update_frequency: "Real-time"
+  
+  - name: "CRM Data"
+    type: "Salesforce API"
+    location: "api.salesforce.com"
+    update_frequency: "Hourly"
+
+# ========================================
+# Output Preferences
+# ========================================
+output:
+  # Output format
+  format: "Markdown"  # Options: "Markdown", "PDF", "HTML", "Google Docs"
+  
+  # Include sections
+  sections:
+    - "Executive Summary"
+    - "Data Profile"
+    - "Key Findings"
+    - "Question Answers"
+    - "Recommendations Table"
+    - "Next Steps"
+  
+  # Recommendation table columns
+  recommendation_columns:
+    - "Recommendation"
+    - "Evidence"
+    - "Expected Impact"
+    - "Implementation Effort"
+    - "Timeline"
+    - "Metric to Monitor"
+
+# ========================================
+# Prompt Engineering Settings
+# ========================================
+prompt_settings:
+  # Use chain-of-thought prompting
+  chain_of_thought: true
+  
+  # Request evidence citations
+  require_evidence: true
+  
+  # Temperature for LLM (0.0 = deterministic, 1.0 = creative)
+  temperature: 0.3
+  
+  # Max tokens per response
+  max_tokens: 4000
+
+# ========================================
+# Validation Rules
+# ========================================
+validation:
+  # Minimum sample size for statistical significance
+  min_sample_size: 100
+  
+  # Confidence level
+  confidence_level: 0.95
+  
+  # Check for common biases
+  bias_checks:
+    - "survivorship_bias"
+    - "selection_bias"
+    - "confirmation_bias"
+    - "recency_bias"
+  
+  # Data quality thresholds
+  data_quality:
+    max_missing_rate: 0.20  # 20% missing values
+    min_completeness: 0.80  # 80% complete records
+
+# ========================================
+# Experimentation Settings
+# ========================================
+experimentation:
+  # A/B test parameters
+  ab_testing:
+    min_sample_per_variant: 1000
+    statistical_power: 0.80
+    significance_level: 0.05
+  
+  # Experiment tracking
+  tracking_platform: "Optimizely"  # Or "Google Optimize", "VWO", etc.
+
+# ========================================
+# Notification Settings
+# ========================================
+notifications:
+  # Email notifications
+  email:
+    enabled: false
+    recipients:
+      - "analyst@company.com"
+    events:
+      - "analysis_complete"
+      - "validation_failed"
+  
+  # Slack notifications
+  slack:
+    enabled: false
+    webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+    channel: "#data-analysis"
+
+# ========================================
+# Custom Settings
+# ========================================
+custom:
+  # Add your custom configuration here
+  organization: "Your Company Name"
+  team: "Data Analytics Team"
+  project_code: "PROJ-001"
+  
+  # File paths
+  paths:
+    data_directory: "./data/"
+    output_directory: "./outputs/"
+    templates_directory: "./templates/"
+  
+  # Tags for organization
+  tags:
+    - "customer_analytics"
+    - "retention"
+    - "churn_prevention"

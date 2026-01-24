@@ -270,3 +270,20 @@ For complete details:
 **Ready? Pick a template and start analyzing!**
 
 👉 [prompts/use_cases/](/prompts/use_cases/)
+
+
+## 🛠️ Next Steps
+
+1. **Explore the Library**: Browse the `prompts/` directory for specialized analysis frameworks.
+2. **Configure Your Environment**: Update `config.yaml` to customize default parameters for your AI agents.
+3. **Run Automation Scripts**: Check the `scripts/` folder for Python utilities that automate data cleaning and report generation.
+
+---
+
+## 💎 Why Analysis OS?
+
+- **Standardized Output**: Every analysis follows a professional consultant's logic.
+- **Model Agnostic**: Works perfectly with GPT-4, Claude 3.5 Sonnet, and Perplexity.
+- **Modular Design**: Plug-and-play components for any business vertical.
+
+Need help? Check out the [Full Documentation](docs/INDEX.md) or open an [Issue](https://github.com/labgadget015-dotcom/analysis-os/issues).

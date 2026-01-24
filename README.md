@@ -5,25 +5,41 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)
 ![Status](https://img.shields.io/badge/status-production--ready-success.svg)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
-Analysis &amp; AI Consulting OS - Unified framework for data-driven insights and actionable recommendations. Includes churn analysis, SMB AI audits, funnel optimization, and more.
 
-## 🎯 Overview
+**Analysis & AI Consulting OS** - The operating system for analytics consultants and technical founders who want to turn messy data exports into executive-ready recommendations in hours, not weeks.
 
-This operating system transforms data analysis from ad-hoc exploration into a structured, repeatable pipeline. It includes:
-
-- **5-stage analysis pipeline** (Data Prep → Core Analysis → Drill-down → Actionization → Iteration)
-- **Reusable prompt templates** for each stage
-- **Pre-configured checklists** to avoid common pitfalls
-- **Use-case examples** (churn, web analytics, market research)
-- **Configuration files** for tool selection and constraints
+> **For consultants**: Run this monthly as a standardized churn review, SMB AI audit, or funnel optimization—each analysis becomes a repeatable, high-margin engagement.
 
 ---
 
-## 🚀 Quick Start
+## 🎯 What This Does
 
-### 1. Define Your Analysis
+Reduces **subscription churn by 10–20%** in 8 weeks for SaaS and e-commerce companies.
+
+Transforms AI readiness assessments for SMBs into a **systematic, repeatable audit** with clear ROI projections.
+
+Turns ad-hoc data analysis into a **5-stage pipeline** that works the same way every time:
+
+```
+Data Prep → Core Analysis → Drill-down → Actionization → Iteration
+```
+
+Each stage includes:
+- ✅ **Reusable prompt templates** (copy-paste into ChatGPT, Claude, or your AI tool)
+- ✅ **Pre-configured checklists** to catch blind spots
+- ✅ **Output templates** for standardized deliverables
+- ✅ **KPI tracking framework** to measure results
+
+---
+
+## 🚀 Two-Minute Demo
+
+**Scenario**: You need to reduce churn for a B2B SaaS client with 2,000 customers.
+
+### Step 1: Configure (30 seconds)
 
 Edit `config.yaml`:
+
 ```yaml
 analysis:
   domain: "SaaS churn"
@@ -36,7 +52,112 @@ analysis:
     timeline: "8 weeks"
 ```
 
-### 2. Follow the 5-Stage Pipeline
+### Step 2: Run the Pipeline (1–2 hours)
+
+```bash
+bash scripts/run_analysis.sh --use-case churn --config config.yaml
+```
+
+The script will walk you through:
+1. **Data Prep** → Clean dataset, identify segments
+2. **Core Analysis** → Answer key churn questions  
+3. **Drill-down** → Explore high-risk cohorts
+4. **Actionization** → Generate prioritized recommendations
+5. **Iteration** → Validate findings, design A/B tests
+
+### Step 3: Deliver (outputs auto-generated)
+
+- **`outputs/recommendations.md`** → Executive summary
+- **`outputs/recommendation_table.md`** → Action | Evidence | Impact | Effort | Metric
+- **`outputs/kpi_tracking.yaml`** → Baseline, targets, review cadence
+
+See **[examples/churn_analysis_example.md](examples/churn_analysis_example.md)** for a complete worked example.
+
+---
+
+## 🏆 Flagship Use Cases
+
+### 1. SaaS/E-commerce Churn Analysis
+
+**Promise**: Reduce 6-month logo churn by 10–20% through targeted retention interventions.
+
+**Who it's for**: SaaS companies with 500+ subscribers, e-commerce with subscription boxes, B2B platforms.
+
+**Deliverables**:
+- Churn risk segmentation (plan, tenure, engagement)
+- 3–5 high-impact retention strategies (winback campaigns, onboarding fixes, retention offers)
+- A/B test designs + KPI dashboard spec
+
+**Time to value**: 8 weeks from data intake to measurable churn reduction.
+
+**Consulting package**: Run this as a $15k–$25k engagement or monthly retainer.
+
+📄 **[Complete prompt + example →](prompts/use_cases/churn/PROMPT.md)**  
+📊 **[Worked case study →](examples/churn_analysis_example.md)**
+
+---
+
+### 2. SMB AI Readiness Audit
+
+**Promise**: Deliver a 2-week AI readiness assessment for small B2B/SaaS companies with clear quick-win automations and 12-month roadmap.
+
+**Who it's for**: SMBs (10–100 employees) wanting to adopt AI but unsure where to start.
+
+**Deliverables**:
+- Current tech stack summary
+- 3–5 quick-win automations (e.g., AI-powered support triage, sales email drafting)
+- 12-month AI roadmap with estimated ROI ranges
+- Tool recommendations + implementation effort
+
+**Time to value**: 2-week engagement.
+
+**Consulting package**: Run this as a $5k–$10k fixed-scope audit.
+
+📄 **[Complete prompt + example →](prompts/use_cases/smb_ai_audit/PROMPT.md)**  
+📊 **[Worked case study →](examples/smb_ai_audit_example.md)**
+
+---
+
+## 📁 File Structure
+
+```
+analysis-os/
+├── README.md                    # This file
+├── config.yaml                  # Analysis configuration
+├── scripts/
+│   └── run_analysis.sh          # One-command pipeline orchestration
+├── checklists/
+│   └── master_analysis_checklist.md  # Complete validation checklist
+├── prompts/
+│   ├── core/
+│   │   ├── data_prep.md         # Stage 1: Data preparation
+│   │   ├── core_analysis.md     # Stage 2: Core analysis
+│   │   ├── drilldown.md         # Stage 3: Deep dives
+│   │   ├── actionization.md     # Stage 4: Recommendations
+│   │   └── iteration.md         # Stage 5: Validation
+│   └── use_cases/
+│       ├── churn/PROMPT.md      # Complete churn analysis prompt
+│       ├── smb_ai_audit/PROMPT.md  # SMB AI readiness audit
+│       ├── web_analytics/PROMPT.md
+│       ├── market_research/PROMPT.md
+│       └── [6 more modules...]
+├── templates/
+│   ├── recommendation_table.md  # Standard action table
+│   └── output_template.md       # Executive summary format
+├── examples/
+│   ├── churn_analysis_example.md     # Full worked churn example
+│   └── smb_ai_audit_example.md       # Full worked SMB AI audit
+└── docs/
+    ├── TUTORIAL.md              # Complete walkthrough + 2-week engagement template
+    ├── KPI_TRACKING_FRAMEWORK.md
+    ├── ARCHITECTURE.md          # Technical design
+    ├── ROADMAP.md               # Future modules
+    └── ENGAGEMENT_TEMPLATES.md  # Consulting package templates
+```
+
+---
+
+## 🔧 The 5-Stage Pipeline
 
 | Stage | Checklist | Prompt Template | Output |
 |-------|-----------|-----------------|--------|
@@ -46,217 +167,79 @@ analysis:
 | **4. Actionization** | `/checklists/` | `/prompts/core/actionization.md` | Prioritized recommendations |
 | **5. Iteration** | `/checklists/` | `/prompts/core/iteration.md` | Validation, experiments |
 
-### 3. Run Your First Analysis
+### Run It All at Once
 
 ```bash
-# Example: Churn analysis
-cp prompts/use_cases/churn/PROMPT.md my_analysis.md
-# Edit with your data details
-# Copy to your AI tool (ChatGPT, Claude, etc.)
+bash scripts/run_analysis.sh --use-case churn --config config.yaml
 ```
 
----
+This will:
+1. Validate your `config.yaml`
+2. Print which stage is running
+3. Write outputs to `/outputs/run-YYYYMMDD/`
+4. Generate ready-to-use markdown skeletons for your AI tool
 
-## 📁 File Structure
-
-```
-analysis-os/
-├── README.md                          # This file
-├── config.yaml                        # Analysis configuration
-├── checklists/
-│   └── master_analysis_checklist.md   # Complete validation checklist
-├── prompts/
-│   ├── core/
-│   │   ├── data_prep.md              # Stage 1: Data preparation
-│   │   ├── core_analysis.md          # Stage 2: Core analysis
-│   │   ├── drilldown.md              # Stage 3: Deep dives
-│   │   ├── actionization.md          # Stage 4: Recommendations
-│   │   └── iteration.md              # Stage 5: Validation
-│   └── use_cases/
-│       ├── churn/
-│       │   └── PROMPT.md             # Complete churn analysis prompt
-│       ├── web_analytics/
-│       │   └── PROMPT.md             # Web traffic optimization
-│       └── market_research/
-│           └── PROMPT.md             # Competitor/market analysis
-├── templates/
-│   ├── output_template.md            # Standard output format
-│   └── recommendation_table.md       # Recommendation structure
-└── notebooks/
-    └── examples/                     # Jupyter notebook examples
-
-```
+**See [QUICKSTART.md](QUICKSTART.md) for full instructions.**
 
 ---
 
-## 🔧 The 5-Stage Pipeline
+## 🎓 All Use Cases
 
-### Stage 1: Data Prep
-**Goal**: Clean, understand, and document your dataset
+### Flagship Modules (Production-Ready)
 
-**Checklist**: 
-- ✅ Handle missing values
-- ✅ Check data types and formats
-- ✅ Document column meanings
-- ✅ Identify date ranges and segments
+1. **[Churn Analysis](prompts/use_cases/churn/)** - Reduce SaaS/subscription churn by 10–20%
+2. **[SMB AI Audit](prompts/use_cases/smb_ai_audit/)** - AI readiness assessment for small businesses
 
-**Prompt**: `/prompts/core/data_prep.md`
+### Additional Modules
 
----
+3. **[Web Analytics](prompts/use_cases/web_analytics/)** - Optimize traffic, conversions, engagement
+4. **[Market Research](prompts/use_cases/market_research/)** - Competitive intelligence, positioning
+5. **[Marketing Attribution](prompts/use_cases/marketing_attribution/)** - Optimize spend, understand customer journey
+6. **[Pricing Optimization](prompts/use_cases/pricing_optimization/)** - Maximize revenue through strategic pricing
+7. **[Customer Segmentation](prompts/use_cases/customer_segmentation/)** - RFM, behavioral, demographic profiling
+8. **[A/B Test Analysis](prompts/use_cases/ab_test_analysis/)** - Rigorous experiment analysis
 
-### Stage 2: Core Analysis
-**Goal**: Answer primary business questions
-
-**Checklist**:
-- ✅ Define 3-5 key questions
-- ✅ Set constraints (time, budget, scope)
-- ✅ Use chain-of-thought prompting
-- ✅ Request evidence for all claims
-
-**Prompt**: `/prompts/core/core_analysis.md`
+**All modules** follow the same 5-stage pipeline and output standardized recommendation tables.
 
 ---
 
-### Stage 3: Drill-down
-**Goal**: Explore segments, cohorts, and edge cases
+## 🏗️ Who This Is For
 
-**Checklist**:
-- ✅ Ask "why" and "what if"
-- ✅ Segment by key dimensions
-- ✅ Identify outliers and anomalies
+### ✅ Perfect For
 
-**Prompt**: `/prompts/core/drilldown.md`
+- **Analytics consultants** who want to productize their process and run repeatable engagements
+- **Technical founders** who need to turn data into action without hiring a full analytics team
+- **Fractional CPOs/data leads** managing multiple SMB clients
+- **AI-powered auditors** who want to systematize SMB assessments
 
----
+### ❌ Not For
 
-### Stage 4: Actionization
-**Goal**: Generate prioritized, actionable recommendations
-
-**Output Format**:
-| Recommendation | Evidence | Impact | Effort | Metric to Monitor |
-|----------------|----------|--------|--------|-------------------|
-| Action 1 | Data X shows Y | High | Medium | Metric Z |
-
-**Prompt**: `/prompts/core/actionization.md`
+- Large enterprises with dedicated BI teams (this is for small, fast-moving teams)
+- Pure data science research (this focuses on business action, not academic rigor)
+- Real-time dashboarding (this is for strategic reviews, not live monitoring)
 
 ---
 
-### Stage 5: Iteration
-**Goal**: Validate findings, check blind spots, design experiments
+## 💼 Commercial Usage
 
-**Checklist**:
-- ✅ Re-run analysis with different assumptions
-- ✅ Check for survivorship bias, confounders
-- ✅ Design A/B tests for top recommendations
+### How Consultants Use This OS
 
-**Prompt**: `/prompts/core/iteration.md`
+**Month 1: Client Intake**
+- Configure `config.yaml` with client's domain, questions, constraints
+- Run `scripts/run_analysis.sh`
+- Deliver recommendations deck + KPI tracking framework
 
----
+**Ongoing: Monthly Reviews**
+- Re-run analysis with updated data
+- Track KPIs against baseline
+- Iterate on experiments
 
-## 🎓 Use Cases
+**Pricing Models**:
+- **One-time audit**: $5k–$25k (depending on complexity)
+- **Monthly retainer**: $3k–$8k/month (includes data refresh, KPI review, experiment design)
+- **Success fee**: Base fee + % of churn reduction or revenue lift
 
-### Module A: Churn Analysis
-**Target**: Reduce customer churn in SaaS/subscription businesses
-
-**Questions**: 
-- Which segments churn fastest?
-- What behaviors predict churn?
-- What interventions reduce churn by 10%+?
-
-**Output**: Prioritized retention strategies
-
-**Prompt**: `/prompts/use_cases/churn/PROMPT.md`
-
----
-
-### Module B: Web Analytics
-**Target**: Optimize traffic, conversions, engagement
-
-**Questions**:
-- Which pages have highest bounce rates?
-- What drives conversions?
-- Where should we invest in content/UX?
-
-**Prompt**: `/prompts/use_cases/web_analytics/PROMPT.md`
-
----
-
-### Module C: Market Research
-**Target**: Competitive intelligence, positioning, go-to-market
-
-**Questions**:
-- How do we compare to competitors?
-- What features/pricing drive market share?
-- Which segments should we target?
-
-**Prompt**: `/prompts/use_cases/market_research/PROMPT.md`
-
----
-
-## ⚙️ Customization
-
-### Module D: Marketing Attribution
-
-**Target**: Optimize marketing spend and understand customer journey touchpoints
-
-**Questions**:
-- Which marketing channels drive highest ROI?
-- What is the optimal budget allocation across channels?
-- How do customers typically convert (customer journey)?
-
-**Prompt**: `/prompts/use_cases/marketing_attribution/PROMPT.md`
-
-### Module E: Pricing Optimization
-
-**Target**: Maximize revenue and profit through strategic pricing
-
-**Questions**:
-- What are optimal price points for our products?
-- How price-sensitive are different customer segments?
-- What's the projected revenue impact of price changes?
-
-**Prompt**: `/prompts/use_cases/pricing_optimization/PROMPT.md`
-
-### Module F: Customer Segmentation
-
-**Target**: Identify and profile distinct customer groups for targeted strategies
-
-**Questions**:
-- What are our key customer segments (RFM, behavioral, demographic)?
-- Which segments have highest lifetime value?
-- How should we tailor strategies by segment?
-
-**Prompt**: `/prompts/use_cases/customer_segmentation/PROMPT.md`
-
-### Module G: A/B Test Analysis
-
-**Target**: Rigorously analyze experiments to make ship/no-ship decisions
-
-**Questions**:
-- Is the test result statistically significant?
-- What's the expected business impact if we ship?
-- Are there segment-specific effects we should consider?
-
-**Prompt**: `/prompts/use_cases/ab_test_analysis/PROMPT.md`
-
-### 1. Edit `config.yaml`
-Centralize your analysis parameters:
-```yaml
-tools:
-  small_data: "ChatGPT (Code Interpreter)"
-  large_data: "BigQuery + Claude"
-  visualization: "Python (matplotlib)"
-```
-
-### 2. Create Custom Prompts
-Copy any template from `/prompts/core/` and modify for your domain.
-
-### 3. Add New Use Cases
-Create `/prompts/use_cases/[your_domain]/PROMPT.md` with:
-- Role & context
-- Objective
-- Constraints
-- Output format
+**See [docs/ENGAGEMENT_TEMPLATES.md](docs/ENGAGEMENT_TEMPLATES.md) for complete engagement templates.**
 
 ---
 
@@ -267,30 +250,18 @@ Create `/prompts/use_cases/[your_domain]/PROMPT.md` with:
 3. **Request evidence** - Ask AI to cite data for every claim
 4. **Iterate with "why" prompts** - Drill down on surprising findings
 5. **Design experiments** - Recommendations without tests are just hypotheses
+6. **Track KPIs from day 1** - Use the KPI framework to measure impact
 
 ---
 
-## 📊 Example Workflow
+## 📖 Documentation
 
-```bash
-# Step 1: Configure
-vim config.yaml  # Set domain, questions, constraints
-
-# Step 2: Data Prep
-# Use prompts/core/data_prep.md with your dataset
-
-# Step 3: Core Analysis
-# Use prompts/core/core_analysis.md to answer key questions
-
-# Step 4: Drill-down
-# Use prompts/core/drilldown.md for segment analysis
-
-# Step 5: Actionization
-# Use prompts/core/actionization.md to generate recommendations
-
-# Step 6: Iteration
-# Use prompts/core/iteration.md to validate and design experiments
-```
+- **[QUICKSTART.md](QUICKSTART.md)** - Get running in 5 minutes
+- **[docs/TUTORIAL.md](docs/TUTORIAL.md)** - Complete walkthrough + 2-week churn engagement template
+- **[docs/KPI_TRACKING_FRAMEWORK.md](docs/KPI_TRACKING_FRAMEWORK.md)** - How to measure and track outcomes
+- **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)** - Technical design and customization
+- **[docs/ROADMAP.md](docs/ROADMAP.md)** - Planned modules and features
+- **[docs/ENGAGEMENT_TEMPLATES.md](docs/ENGAGEMENT_TEMPLATES.md)** - Consulting package templates
 
 ---
 
@@ -299,16 +270,11 @@ vim config.yaml  # Set domain, questions, constraints
 - **Repository**: https://github.com/labgadget015-dotcom/analysis-os
 - **Issues**: https://github.com/labgadget015-dotcom/analysis-os/issues
 - **Discussions**: https://github.com/labgadget015-dotcom/analysis-os/discussions
-- **📖 Tutorial**: See [docs/TUTORIAL.md](docs/TUTORIAL.md) for a complete walkthrough
-- **🏗️ Architecture**: Read [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for technical details
-- **🤖 Automation**: Use `scripts/run_analysis.sh` to orchestrate analyses
 
 ---
 
 ## 📄 License
 
-MIT License - Feel free to use and adapt for your own analysis work.
+MIT License - Feel free to use and adapt for your own consulting work.
 
----
-
-**Status**: v1.0 - Complete and ready for implementation
+**Status**: v1.0 - Production-ready for churn analysis and SMB AI audits.

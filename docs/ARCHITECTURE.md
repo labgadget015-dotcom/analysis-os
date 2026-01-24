@@ -187,3 +187,26 @@ Each use case module follows a consistent pattern:
 **Version**: 1.0  
 **Last Updated**: January 2026  
 **License**: MIT
+
+
+## Consulting OS Layer
+
+The Consulting OS layer sits on top of the technical pipeline to productize the analysis for client delivery.
+
+### Component 1: Engagement Templates
+- **Purpose**: Map technical stages to client-facing timelines and deliverables.
+- **Location**: `docs/ENGAGEMENT_TEMPLATES.md`
+- **Logic**: Converts raw analysis stages into billable milestones (e.g., Week 1: Intake, Week 2: Analysis, etc.).
+
+### Component 2: Standardized Deliverables
+- **Executive Summary**: `templates/output_template.md`
+- **Prioritization Table**: `templates/recommendation_table.md`
+- **KPI Framework**: `docs/KPI_TRACKING_FRAMEWORK.md`
+
+### Component 3: Configuration & Guardrails
+- **config.yaml**: Centralizes client constraints (budget, timeline, questions).
+- **checklists/**: Ensures quality and completeness across different analysts.
+
+---
+
+**Back to [README.md](../README.md)**
